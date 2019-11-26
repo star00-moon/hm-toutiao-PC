@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    hello world
+    <el-button type="primary" disabled>主要按钮</el-button>
   </div>
 </template>
 
