@@ -61,15 +61,15 @@
           <span class="el-icon-s-fold" @click="toggleMenu"></span>
           <!-- 文字 -->
           <span class="text">江苏传智播客科技教育有限公司</span>
-          <el-dropdown class="dropdown">
+          <el-dropdown class="dropdown" @command="handleClick">
             <span class="el-dropdown-link">
-              <img src="./../../assets/avatar.jpg" alt class="headIcon" />
-              <span class="userName">用户名</span>
+              <img :src="photo" alt class="headIcon" />
+              <span class="userName">{{name}}</span>
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-unlock">退出登陆</el-dropdown-item>
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item icon="el-icon-setting" command="setting">个人设置</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-unlock" command="logout">退出登陆</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
@@ -82,17 +82,39 @@
 </template>
 
 <script>
+import local from '@/utils/local'
 export default {
   data () {
     return {
-      isOpen: true
+      isOpen: true,
+      photo: '',
+      name: ''
     }
   },
   methods: {
     // 侧边栏展开和收起
     toggleMenu () {
       this.isOpen = !this.isOpen
+    },
+    // 跳往设置
+    setting () {
+      this.$router.push('/setting')
+    },
+    // 退出
+    logout () {
+      local.delUser()
+      this.$router.push('/login')
+    },
+    handleClick (command) {
+      // command：setting / logout
+      // this[command]  对象[]赋值写法，[]里面可以写变量
+      this[command]()
     }
+  },
+  created () {
+    const user = local.getUser() || {}
+    this.photo = user.photo
+    this.name = user.name
   }
 }
 </script>

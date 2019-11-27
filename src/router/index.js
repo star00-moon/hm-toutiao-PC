@@ -10,6 +10,8 @@ import Home from '@/views/home'
 import Welcome from '@/views/welcome'
 // 引入404组件
 import NotFount from '@/views/404'
+// 引入local
+import local from '@/utils/local'
 // 使用vue-router
 Vue.use(VueRouter)
 
@@ -32,6 +34,16 @@ const router = new VueRouter({
       ]
     }
   ]
+})
+// 设置路由导航守卫 ｜ 路由前置导航守卫
+router.beforeEach((to, from, next) => {
+  // to：即将要进入的目标 路由对象
+  // from： 当前导航正要离开的路由
+  // next：next()放行   next('/login')跳转登陆
+  // next：如果你访问的不是登录页面，且又没有登录，跳转到登录页面。
+  const user = local.getUser()
+  if (to.path !== '/login' && !user) return next('/login')
+  next()
 })
 
 // 导出router

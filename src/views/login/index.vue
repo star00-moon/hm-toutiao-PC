@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import local from '@/utils/local'
 export default {
   data () {
     // 自定义校验函数
@@ -65,24 +66,36 @@ export default {
     login () {
       // 使用el-form的实例调用validate
       // valid为true代表校验成功，false为失败
-      this.$refs['loginForm'].validate((valid) => {
+      this.$refs.loginForm.validate(async valid => {
+      // this.$refs['loginForm'].validate(async valid => {
         if (valid) {
           // post传参，参数为对象
           // promise，then处理成功，catch处理失败
-          this.$http.post('authorizations', this.LoginForm).then(() => {
-            // 成功
+          // this.$http.post('authorizations', this.LoginForm).then(res => {
+          // 成功
+          // res是响应对象，res.data是响应主体
+          // 保存用户信息-token
+          //   local.setUser(res.data.data)
+          //   this.$router.push('/')
+          // }).catch(() => {
+          // 失败
+          // this.$message.error('手机号或验证码错误')
+          // })
+          // 以下代码可能会出现异常（报错） 使用try{ 可能报错代码 }catch(e){ 处理错误 }
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.LoginForm)
+            local.setUser(data)
             this.$router.push('/')
-          }).catch(() => {
-            // 失败
+          } catch (e) {
+            // e：exception异常，报错
             this.$message.error('手机号或验证码错误')
-          })
+          }
         }
       })
     }
   }
 }
 </script>
-
 <style scoped lang='less'>
 .container_login {
   position: absolute;
