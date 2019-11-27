@@ -43,8 +43,8 @@ export default {
     }
     return {
       LoginForm: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       // 添加校验规则
       loginRules: {
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods: {
-    login (loginForm) {
+    login () {
       // 使用el-form的实例调用validate
       // valid为true代表校验成功，false为失败
       this.$refs['loginForm'].validate((valid) => {
