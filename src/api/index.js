@@ -3,9 +3,22 @@ import axios from 'axios'
 // 引入lcoal
 import local from '@/utils/local'
 import router from '@/router'
+
+// 引入json-bigint
+import JSONBIGINT from 'json-bigint'
 // 对axios进行配置
 // baseURL    作用：设置基准地址（前面一段相同的地址）
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+// 配置json-bigint
+axios.defaults.transformResponse = [(data) => {
+  // 对 data 进行任意转换处理
+  try {
+    const result = JSONBIGINT.parse(data)
+    return result
+  } catch (err) {
+    return data
+  }
+}]
 // 配置请求头携带token
 // if (local.getUser()) {
 //   axios.defaults.headers.Authorization = `Bearer ${local.getUser().token}`
@@ -39,6 +52,7 @@ axios.interceptors.response.use(res => res, err => {
   }
   return Promise.reject(err)
 })
+
 // 其他配置...
 
 // 导出axios

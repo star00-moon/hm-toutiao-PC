@@ -2,6 +2,9 @@
 import Vue from 'vue'
 // 引入vue-router
 import VueRouter from 'vue-router'
+// 引入local
+import local from '@/utils/local'
+
 // 引入login组件
 import Login from '@/views/login'
 // 引入home组件
@@ -10,8 +13,10 @@ import Home from '@/views/home'
 import Welcome from '@/views/welcome'
 // 引入404组件
 import NotFount from '@/views/404'
-// 引入local
-import local from '@/utils/local'
+// 引入article组件
+import Article from '@/views/article'
+// 引入image
+import Image from '@/views/image'
 // 使用vue-router
 Vue.use(VueRouter)
 
@@ -30,7 +35,11 @@ const router = new VueRouter({
       component: Home,
       children: [
         // 欢迎
-        { path: '/', component: Welcome }
+        { path: '/', component: Welcome },
+        // 内容管理
+        { path: '/article', component: Article },
+        // 素材管理
+        { path: '/image', component: Image }
       ]
     }
   ]
