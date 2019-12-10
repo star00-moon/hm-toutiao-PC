@@ -21,6 +21,10 @@ import Image from '@/views/image'
 import Publish from '@/views/publish'
 // 引入comment
 import Comment from '@/views/comment'
+// 引入fans
+import Fans from '@/views/fans'
+// 引入setting
+import Setting from '@/views/setting'
 // 使用vue-router
 Vue.use(VueRouter)
 
@@ -47,7 +51,11 @@ const router = new VueRouter({
         // 文章发布
         { path: '/publish', component: Publish },
         // 评论管理
-        { path: '/comment', component: Comment }
+        { path: '/comment', component: Comment },
+        // 粉丝管理
+        { path: '/fans', component: Fans },
+        // 个人设置
+        { path: '/setting', component: Setting }
       ]
     }
   ]

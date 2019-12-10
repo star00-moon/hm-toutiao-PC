@@ -83,6 +83,7 @@
 
 <script>
 import local from '@/utils/local'
+import eventBus from '@/utils/eventBus'
 export default {
   data () {
     return {
@@ -90,6 +91,15 @@ export default {
       photo: '',
       name: ''
     }
+  },
+  created () {
+    this.getUser()
+    eventBus.$on('updateName', (name) => {
+      this.name = name
+    })
+    eventBus.$on('updatePhoto', (photo) => {
+      this.photo = photo
+    })
   },
   methods: {
     // 侧边栏展开和收起
@@ -109,12 +119,12 @@ export default {
       // command：setting / logout
       // this[command]  对象[]赋值写法，[]里面可以写变量
       this[command]()
+    },
+    getUser () {
+      const user = local.getUser() || {}
+      this.photo = user.photo
+      this.name = user.name
     }
-  },
-  created () {
-    const user = local.getUser() || {}
-    this.photo = user.photo
-    this.name = user.name
   }
 }
 </script>
