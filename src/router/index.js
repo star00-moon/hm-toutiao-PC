@@ -17,6 +17,8 @@ import NotFount from '@/views/404'
 import Article from '@/views/article'
 // 引入image
 import Image from '@/views/image'
+// 引入publish
+import Publish from '@/views/publish'
 // 使用vue-router
 Vue.use(VueRouter)
 
@@ -39,7 +41,9 @@ const router = new VueRouter({
         // 内容管理
         { path: '/article', component: Article },
         // 素材管理
-        { path: '/image', component: Image }
+        { path: '/image', component: Image },
+        // 文章发布
+        { path: '/publish', component: Publish }
       ]
     }
   ]

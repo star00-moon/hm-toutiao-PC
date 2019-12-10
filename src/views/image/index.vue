@@ -135,11 +135,11 @@ export default {
     // 上传成功触发
     upSuccess (res) {
       this.imageUrl = res.data.url
-      this.$message.success('上传成功，一秒后关闭')
+      this.$message.success('上传成功，2秒后关闭')
       setTimeout(() => {
         this.flag = false
         this.getImages()
-      }, 1000)
+      }, 2000)
     }
   }
 }
@@ -151,7 +151,7 @@ export default {
   .img_item {
     position: relative;
     width: 160px;
-    height: 180px;
+    height: 140px;
     border: 1px dashed #ddd;
     display: inline-block;
     margin-right: 50px;
